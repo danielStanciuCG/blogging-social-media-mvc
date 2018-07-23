@@ -9,7 +9,7 @@ class Pages extends Controller {
 
     public function index() {
         $data = [
-            "title" => "MVC Framework",
+            "title" => "SharePosts",
         ];
         $this->loadView("pages/index", $data);
     }
