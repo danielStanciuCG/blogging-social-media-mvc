@@ -15,9 +15,7 @@ class User extends Controller {
     public function register() {
         //Check for POST
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            //Process form
-
-            //Sanatize POST data
+            //Process form & sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
             //Init data
@@ -66,7 +64,6 @@ class User extends Controller {
                 //Load view with errors
                 $this->loadView("users/register", $data);
             }
-
         } else {
             //Init data
             $data = [
@@ -91,7 +88,36 @@ class User extends Controller {
     public function logIn() {
         //Check for POST
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            //Process form
+            //Process form & sanitize POST data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            //Init data
+            $data = [
+                "email" => trim($_POST["email"]),
+                "password" => trim($_POST["password"]),
+                "emailError" => "",
+                "passwordError" => "",
+            ];
+
+            //Validate email
+            if (empty($data["email"])) {
+                $data["emailError"] = "Please enter a valid email address.";
+            }
+
+            //Validate password
+            if (empty($data["password"])) {
+                $data["passwordError"] = "Please enter a password.";
+            } elseif (strlen($data["password"]) < 6) {
+                $data["passwordError"] = "Password must be at least 6 characters.";
+            }
+
+            //Make sure errors are empty
+            if (empty($data["emailError"]) && empty($data["passwordError"])) {
+                die("SUCCESS");
+            } else {
+                //Load view with errors
+                $this->loadView("users/register", $data);
+            }
         } else {
             //Init data
             $data = [
