@@ -1,10 +1,17 @@
 <?php
 
+/**
+ * Class User
+ * Manages the registration and log in processes.
+ */
 class User extends Controller {
     public function __construct() {
 
     }
 
+    /**
+     * Handles user registrations
+     */
     public function register() {
         //Check for POST
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -26,4 +33,5 @@ class User extends Controller {
             $this->loadView("users/register", $data);
         }
     }
+
 }
