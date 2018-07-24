@@ -68,7 +68,15 @@ class Users extends Controller {
             //Make sure errors are empty
             if (empty($data["emailError"]) && empty($data["nameError"]) && empty($data["passwordError"])
                 && empty($data["confirmPasswordError"])) {
-                die("SUCCESS");
+                //Hash password
+                $data["password"] = password_hash($data["password"], PASSWORD_DEFAULT);
+
+                //Register user by calling the model method
+                if($this->model->registerUser($data)) {
+                    redirect("users/login");
+                } else {
+                    die("Something went wrong when trying to register user data for a new account.");
+                }
             } else {
                 //Load view with errors
                 $this->loadView("users/register", $data);

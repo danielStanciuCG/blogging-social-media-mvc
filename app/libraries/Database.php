@@ -81,7 +81,7 @@ class Database {
 
     /**
      * Executes the prepared statement.
-     * @return mixed
+     * @return bool
      */
     public function execute() {
         return $this->statement->execute();
