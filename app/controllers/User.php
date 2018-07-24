@@ -34,4 +34,24 @@ class User extends Controller {
         }
     }
 
+    /**
+     * Handles user logins
+     */
+    public function logIn() {
+        //Check for POST
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            //Process form
+        } else {
+            //Init data
+            $data = [
+                "email" => "",
+                "password" => "",
+                "emailError" => "",
+                "passwordError" => "",
+            ];
+
+            //Load view
+            $this->loadView("users/login", $data);
+        }
+    }
 }
