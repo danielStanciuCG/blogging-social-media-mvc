@@ -4,7 +4,7 @@
         <div class="card card-body bg-light mt-5">
             <h2>Create An Account</h2>
             <p>Please fill out this form to register with us.</p>
-            <form action="<?php echo URL_ROOT; ?>/user/register" method="post">
+            <form action="<?php echo URL_ROOT; ?>/users/register" method="post">
                 <div class="form-group">
                     <label for="name">Name: <sup>*</sup></label>
                     <input type="text" name="name"

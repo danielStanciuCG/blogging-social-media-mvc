@@ -1,12 +1,17 @@
 <?php
 
 /**
- * Class User
+ * Class Users
  * Manages the registration and log in processes.
  */
-class User extends Controller {
-    public function __construct() {
+class Users extends Controller {
+    private $model;
 
+    /**
+     * Creates user functionality such as account registration and logging in.
+     */
+    public function __construct() {
+        $this->model = $this->loadModel("User");
     }
 
     /**
