@@ -50,6 +50,12 @@ class Database {
         $this->statement = $this->pdo->prepare($sql);
     }
 
+    /**
+     * Binds user input to PDO placeholder.
+     * @param $param - named parameter / PDO placeholder
+     * @param $value string - actual user input value
+     * @param null $type
+     */
     public function bind($param, $value, $type = null) {
         if (is_null($type)) {
             switch (true) {
@@ -94,7 +100,7 @@ class Database {
      * Get single record as object.
      * @return mixed object
      */
-    public function single() {
+    public function getSingleObj() {
         $this->execute();
         return $this->statement->fetch();
     }

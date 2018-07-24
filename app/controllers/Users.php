@@ -38,6 +38,10 @@ class Users extends Controller {
             //Validate email
             if (empty($data["email"])) {
                 $data["emailError"] = "Please enter a valid email address.";
+            } else {
+                if ($this->model->findUserByEmail($data["email"])) {
+                    $data["emailError"] = "Email address is already taken.";
+                }
             }
 
             //Validate name
