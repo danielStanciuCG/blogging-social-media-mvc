@@ -91,7 +91,7 @@ class Database {
      * Get result as an array of objects.
      * @return array
      */
-    public function resultSet() {
+    public function getMultipleObjects() {
         $this->execute();
         return $this->statement->fetchAll(PDO::FETCH_OBJ);
     }
