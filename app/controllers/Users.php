@@ -135,11 +135,11 @@ class Users extends Controller {
             //Make sure errors are empty
             if (empty($data["emailError"]) && empty($data["passwordError"])) {
                 //Validated - check and set logged in user
-                $loggedIn = $this->model->checkCredentials($data["email"], $data["password"]);
+                $loggedInUser = $this->model->checkCredentials($data["email"], $data["password"]);
 
-                if ($loggedIn) {
+                if ($loggedInUser) {
                     //Create session
-                    die("Success");
+                    $this->createUserSession($loggedInUser);
                 } else {
                     $data["passwordError"] = "Password incorrect";
                     $this->loadView("users/login", $data);
@@ -160,5 +160,35 @@ class Users extends Controller {
             //Load view
             $this->loadView("users/login", $data);
         }
+    }
+
+    /**
+     * Creates user session once the user has logged in.
+     * @param $user - row returned by SQL query as an object, the logged in user
+     */
+    public function createUserSession($user) {
+        $_SESSION["userId"] = $user->id;
+        $_SESSION["userEmail"] = $user->email;
+        $_SESSION["userName"] = $user->name;
+        redirect("pages/index");
+    }
+
+    /**
+     * Logs user out.
+     */
+    public function logOut() {
+        unset($_SESSION["userId"]);
+        unset($_SESSION["userEmail"]);
+        unset($_SESSION["userName"]);
+        session_destroy();
+        redirect("users/login");
+    }
+
+    /**
+     * Checks whether or not the user is logged in.
+     * @return bool
+     */
+    public function isLoggedIn() {
+        return isset($_SESSION["userId"]);
     }
 }
