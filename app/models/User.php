@@ -47,8 +47,32 @@ class User {
         $this->db->bind(":password", $data["password"]);
 
         //Execute
-        if($this->db->execute()) {
+        if ($this->db->execute()) {
             return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Validate login credentials.
+     * @param $email - string, username
+     * @param $password - string, password
+     * @return mixed - if the credentials match an entry in the database, it returns the row. Otherwise, it returns false.
+     */
+    public function checkCredentials($email, $password) {
+        //Run SQL for email address
+        $this->db->query("SELECT * from USERS where email = :email");
+
+        //Bind value
+        $this->db->bind(":email", $email);
+
+        //Check password
+        $row = $this->db->getSingleObj();
+        $hashedPassword = $row->password;
+
+        if (password_verify($password, $hashedPassword)) {
+            return $row;
         } else {
             return false;
         }

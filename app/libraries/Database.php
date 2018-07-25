@@ -102,7 +102,7 @@ class Database {
      */
     public function getSingleObj() {
         $this->execute();
-        return $this->statement->fetch();
+        return $this->statement->fetch(PDO::FETCH_OBJ);
     }
 
     /**

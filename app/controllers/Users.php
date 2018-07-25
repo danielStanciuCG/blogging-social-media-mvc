@@ -72,7 +72,7 @@ class Users extends Controller {
                 $data["password"] = password_hash($data["password"], PASSWORD_DEFAULT);
 
                 //Register user by calling the model method
-                if($this->model->registerUser($data)) {
+                if ($this->model->registerUser($data)) {
                     genFlashMsg("register_success", "You are registered and can log in!");
                     redirect("users/login");
                 } else {
@@ -121,6 +121,9 @@ class Users extends Controller {
             if (empty($data["email"])) {
                 $data["emailError"] = "Please enter a valid email address.";
             }
+            if (!$this->model->findUserByEmail($data["email"])) {
+                $data["emailError"] = "Invalid username";
+            }
 
             //Validate password
             if (empty($data["password"])) {
@@ -131,10 +134,19 @@ class Users extends Controller {
 
             //Make sure errors are empty
             if (empty($data["emailError"]) && empty($data["passwordError"])) {
-                die("SUCCESS");
+                //Validated - check and set logged in user
+                $loggedIn = $this->model->checkCredentials($data["email"], $data["password"]);
+
+                if ($loggedIn) {
+                    //Create session
+                    die("Success");
+                } else {
+                    $data["passwordError"] = "Password incorrect";
+                    $this->loadView("users/login", $data);
+                }
             } else {
                 //Load view with errors
-                $this->loadView("users/register", $data);
+                $this->loadView("users/login", $data);
             }
         } else {
             //Init data
