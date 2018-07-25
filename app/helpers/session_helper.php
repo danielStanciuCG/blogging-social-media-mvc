@@ -29,3 +29,12 @@ function genFlashMsg($name = "", $message = "", $class = "alert alert-success") 
         }
     }
 }
+
+/**
+ * Checks whether or not the user is logged in.
+ * @return bool
+ */
+function isLoggedIn() {
+    return isset($_SESSION["userId"]);
+}
+

@@ -14,6 +14,23 @@ class Users extends Controller {
         $this->model = $this->loadModel("User");
     }
 
+    public function index() {
+        if (!isLoggedIn()) {
+            $data = [
+                "email" => "",
+                "password" => "",
+            ];
+
+            $this->loadView("users/login", $data);
+        } else {
+            $data = [
+                "title" => "SharePosts",
+                "description" => "Welcome!",
+            ];
+            $this->loadView("pages/index", $data);
+        }
+    }
+
     /**
      * Handles user registrations
      */
@@ -170,7 +187,7 @@ class Users extends Controller {
         $_SESSION["userId"] = $user->id;
         $_SESSION["userEmail"] = $user->email;
         $_SESSION["userName"] = $user->name;
-        redirect("pages/index");
+        redirect("posts");
     }
 
     /**
@@ -182,13 +199,5 @@ class Users extends Controller {
         unset($_SESSION["userName"]);
         session_destroy();
         redirect("users/login");
-    }
-
-    /**
-     * Checks whether or not the user is logged in.
-     * @return bool
-     */
-    public function isLoggedIn() {
-        return isset($_SESSION["userId"]);
     }
 }
