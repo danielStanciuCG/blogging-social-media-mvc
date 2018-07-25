@@ -3,7 +3,8 @@
     <div class="col-md-6 mx-auto">
         <div class="card card-body bg-light mt-5">
             <h2>Log In</h2>
-            <p>Please in your credentials to log in.</p>
+            <?php genFlashMsg("register_success"); ?>
+            <p>Please fill in your credentials to log in.</p>
             <form action="<?php echo URL_ROOT; ?>/users/login" method="post">
                 <div class="form-group">
                     <label for="email">Email Address: <sup>*</sup></label>

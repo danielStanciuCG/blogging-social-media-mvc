@@ -73,6 +73,7 @@ class Users extends Controller {
 
                 //Register user by calling the model method
                 if($this->model->registerUser($data)) {
+                    genFlashMsg("register_success", "You are registered and can log in!");
                     redirect("users/login");
                 } else {
                     die("Something went wrong when trying to register user data for a new account.");
