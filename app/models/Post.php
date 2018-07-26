@@ -28,4 +28,26 @@ class Post {
 
         return $this->db->getMultipleObjects();
     }
+
+    /**
+     * Adds post to the database.
+     * @param $data - array (title, body)
+     * @return bool - returns true if the SQL statements is executed successfully, false if otherwise.
+     */
+    public function addPost($data) {
+        //Run SQL
+        $this->db->query("INSERT INTO posts (title, user_id, body) VALUES(:title, :userId, :body)");
+
+        //Bind values
+        $this->db->bind(":title", $data["title"]);
+        $this->db->bind(":userId", $data["userId"]);
+        $this->db->bind(":body", $data["body"]);
+
+        //Execute
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

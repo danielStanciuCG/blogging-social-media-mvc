@@ -8,6 +8,7 @@
                 <i class="fa fa-pencil"></i> Add Post
             </a>
         </div>
+        <?php genFlashMsg("postMessage"); ?>
     </div>
 <?php foreach ($data["posts"] as $post) : ?>
     <div class="card card-body mb-3">

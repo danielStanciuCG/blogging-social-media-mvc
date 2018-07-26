@@ -4,7 +4,9 @@ class Pages extends Controller {
     private $model;
 
     public function __construct() {
-
+        if (isLoggedIn()) {
+            redirect("posts");
+        }
     }
 
     public function index() {
