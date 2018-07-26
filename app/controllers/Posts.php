@@ -149,9 +149,17 @@ class Posts extends Controller {
      */
     public function delete($id) {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            // Get existing post from model
+            $post = $this->model->getPost($id);
+
+            // Check for owner
+            if ($post->user_id != $_SESSION['user_id']) {
+                redirect('posts');
+            }
+
             if ($this->model->deletePost($id)) {
                 genFlashMsg("postMessage", "Post deleted.");
-                redirect ("posts");
+                redirect("posts");
             } else {
                 die("Something went wrong when trying to delete the post");
             }
