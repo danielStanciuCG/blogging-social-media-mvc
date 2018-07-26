@@ -16,8 +16,8 @@ class Post {
      */
     public function getPosts() {
         $this->db->query("SELECT *,
-                          posts.id AS postID,
-                          users.id AS userID,
+                          posts.id AS postId,
+                          users.id AS userId,
                           posts.created_at AS postDate,
                           users.created_at AS userSignupDate
                           from posts
