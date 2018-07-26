@@ -187,6 +187,7 @@ class Users extends Controller {
         $_SESSION["userId"] = $user->id;
         $_SESSION["userEmail"] = $user->email;
         $_SESSION["userName"] = $user->name;
+        $_SESSION["userFirstName"] = explode(" ", $user->name)[0];
         redirect("posts");
     }
 
@@ -197,6 +198,7 @@ class Users extends Controller {
         unset($_SESSION["userId"]);
         unset($_SESSION["userEmail"]);
         unset($_SESSION["userName"]);
+        unset($_SESSION["userFirstName"]);
         session_destroy();
         redirect("users/login");
     }

@@ -13,4 +13,11 @@
 </head>
 <body>
 <?php require APP_ROOT . "/views/inc/navbar.php"; ?>
+<?php if (isLoggedIn()) : ?>
+    <div class="container">
+        <span class="badge badge-secondary mb-3">
+            <?php echo $_SESSION["userFirstName"] . "'s Dashboard"; ?>
+        </span>
+    </div>
+<?php endif; ?>
 <div class="container">
