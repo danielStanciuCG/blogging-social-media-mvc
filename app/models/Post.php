@@ -52,6 +52,48 @@ class Post {
     }
 
     /**
+     * Updates post in the database.
+     * @param $data - array (title, body)
+     * @return bool - returns true if the SQL statements is executed successfully, false if otherwise.
+     */
+    public function editPost($data) {
+        //Run SQL
+        $this->db->query("UPDATE posts SET title = :title, body = :body WHERE id = :id");
+
+        //Bind values
+        $this->db->bind(":id", $data["postId"]);
+        $this->db->bind(":title", $data["title"]);
+        $this->db->bind(":body", $data["body"]);
+
+        //Execute
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Deletes post from the database.
+     * @param $id - int, the post ID
+     * @return bool - returns true if the SQL statements is executed successfully, false if otherwise.
+     */
+    public function deletePost($id) {
+        //Run SQL
+        $this->db->query("DELETE FROM posts WHERE id = :id");
+
+        //Bind values
+        $this->db->bind(":id", $id);
+
+        //Execute
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Gets the required post from the database.
      * @param $id - int
      * @return bool|mixed - returns SQL row if it exists, else it returns false
