@@ -54,7 +54,7 @@ class Posts extends Controller {
             }
 
             //Make sure no errors
-            if(empty($data["titleError"]) && empty($data["bodyError"])) {
+            if (empty($data["titleError"]) && empty($data["bodyError"])) {
                 //Validated
                 if ($this->model->addPost($data)) {
                     genFlashMsg("postMessage", "Post added!");
@@ -69,8 +69,8 @@ class Posts extends Controller {
 
         } else {
             $data = [
-              "title" => "",
-              "body" => ""
+                "title" => "",
+                "body" => ""
             ];
         }
 
@@ -82,4 +82,19 @@ class Posts extends Controller {
         $this->loadView("posts/add", $data);
     }
 
+    public function show($id) {
+        if ($this->model->getPost($id)) {
+            $post = $this->model->getPost($id);
+            $user = $this->model->getUser($post->user_id);
+
+            $data = [
+                "post" => $post,
+                "user" => $user
+            ];
+
+            $this->loadView("posts/show", $data);
+        } else {
+            redirect("posts");
+        }
+    }
 }

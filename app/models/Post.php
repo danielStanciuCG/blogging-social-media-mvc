@@ -50,4 +50,46 @@ class Post {
             return false;
         }
     }
+
+    /**
+     * Gets the required post from the database.
+     * @param $id - int
+     * @return bool|mixed - returns SQL row if it exists, else it returns false
+     */
+    public function getPost($id) {
+        //Run query
+        $this->db->query("SELECT * from posts WHERE id = :id");
+
+        //Bind values
+        $this->db->bind(":id", $id);
+
+        $row = $this->db->getSingleObj();
+
+        if (!empty($row)) {
+            return $row;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Gets the required user from the database.
+     * @param $id - int
+     * @return bool|mixed - returns SQL row if it exists, else it returns false
+     */
+    public function getUser($id) {
+        //Run query
+        $this->db->query("SELECT * from users WHERE id = :id");
+
+        //Bind values
+        $this->db->bind(":id", $id);
+
+        $row = $this->db->getSingleObj();
+
+        if (!empty($row)) {
+            return $row;
+        } else {
+            return false;
+        }
+    }
 }
